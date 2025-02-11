@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -35,4 +37,7 @@ return [
         ],
     ],
 
+    'openbrewerydb' => [
+        'base_url' => env('OPENBREWERYDB_BASE_URL', 'https://api.openbrewerydb.org/v1'),
+    ],
 ];
