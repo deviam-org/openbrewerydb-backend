@@ -8,14 +8,24 @@ use Exception;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Laravel\Passport\Client;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Api\v1\Auth\LoginRequest;
 use App\Http\Resources\Api\v1\Auth\AuthResource;
+use App\Http\Resources\Api\v1\User\UserResource;
 
 final class AuthController extends Controller
 {
-    public function login(LoginRequest $request)
+
+    /**
+     * Try to login a user and return a token
+     *
+     * @param  LoginRequest  $request
+     * @return JsonResponse
+     */
+    public function login(LoginRequest $request): JsonResponse
     {
         $user = User::where('email', $request->email)->first();
 
@@ -72,5 +82,27 @@ final class AuthController extends Controller
         } catch (Exception $e) {
             return $this->respondError('Token generation failed: '.$e->getMessage());
         }
+    }
+
+    /**
+     * Get current user
+     *
+     * @return JsonResponse
+     */
+    public function profile(): JsonResponse
+    {
+        try {
+            $user = Auth::user();
+        } catch (Exception $e) {
+            return $this->respondError(
+                message: $e->getMessage(),
+            );
+        }
+
+        return $this->respondSuccess(
+            data: UserResource::make($user),
+            metaData: [],
+            message: 'Data loaded successfully'
+        );
     }
 }

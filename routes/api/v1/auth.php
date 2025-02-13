@@ -13,4 +13,11 @@ Route::group([
 
     Route::post('/login', [AuthController::class, 'login'])->middleware('guest')->name('login');
 
+    Route::group([
+        'middleware' => ['auth:api'],
+    ], function (): void {
+        Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+        
+    });
+
 });
