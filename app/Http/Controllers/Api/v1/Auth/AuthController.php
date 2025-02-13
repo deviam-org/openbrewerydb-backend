@@ -105,4 +105,25 @@ final class AuthController extends Controller
             message: 'Data loaded successfully'
         );
     }
+
+
+    /**
+     * Revoke current access token
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function logout(Request $request): JsonResponse
+    {
+        try {
+            $request->user()->token()->revoke();
+
+            return $this->respondNoContent();
+        } catch (Exception $e) {
+            return $this->respondError(
+                message: 'Logout failed: ' . $e->getMessage()
+            );
+        }
+    }
+
 }
