@@ -26,6 +26,8 @@ final class MetaDataBreweries extends Request implements HasBody
         protected ?string $byState = null,
         protected ?string $byPostal = null,
         protected ?string $byType = null,
+        protected int $page = 1,
+        protected int $perPage = 10,
     ) {
     }
 
@@ -54,7 +56,12 @@ final class MetaDataBreweries extends Request implements HasBody
         if ($this->byType) {
             $queryParams['by_type'] = $this->byType;
         }
-
+        if ($this->page) {
+            $queryParams['page'] = $this->page;
+        }
+        if ($this->perPage) {
+            $queryParams['per_page'] = $this->perPage;
+        }
 
         $queryString = $queryParams ? '?'.http_build_query($queryParams) : '';
         return '/breweries/meta'.$queryString;

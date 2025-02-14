@@ -59,10 +59,10 @@ final class ListBreweries extends Request implements HasBody
         if ($this->byType) {
             $queryParams['by_type'] = $this->byType;
         }
-        if (1 !== $this->page) {
+        if ($this->page) {
             $queryParams['page'] = $this->page;
         }
-        if (10 !== $this->perPage) {
+        if ($this->perPage) {
             $queryParams['per_page'] = $this->perPage;
         }
         if ($this->sort) {
