@@ -6,9 +6,9 @@
 
 3. cp .env.example .env
 
-4. sail artisan key:generate
+4. sail up -d
 
-5. sail up -d
+5. sail artisan key:generate
 
 6. sail artisan migrate --seed
 
