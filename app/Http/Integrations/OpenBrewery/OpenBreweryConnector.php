@@ -9,7 +9,7 @@ use Saloon\Traits\Plugins\HasTimeout;
 use Saloon\Traits\Plugins\AcceptsJson;
 use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 
-final class OpenBreweryConnector extends Connector
+class OpenBreweryConnector extends Connector
 {
     use AcceptsJson;
     use AlwaysThrowOnErrors;
@@ -29,7 +29,8 @@ final class OpenBreweryConnector extends Connector
     protected function defaultHeaders(): array
     {
         return [
-            'Content-Type' => 'application/json',
+            'Accept-Charset' => 'utf-8',
+            'Content-Type' => 'application/json; charset=utf-8',
             'Accept' => 'application/json',
         ];
     }
