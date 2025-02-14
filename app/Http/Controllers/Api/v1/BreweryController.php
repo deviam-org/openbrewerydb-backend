@@ -34,25 +34,27 @@ class BreweryController extends Controller
             function () use ($request) {
 
                 $requestData = new ListBreweries(
-                    byCity: $request->byCity,
-                    byName: $request->byName,
-                    byCountry: $request->byCountry,
-                    byState: $request->byState,
-                    byPostal: $request->byPostal,
-                    byType: $request->byType,
+                    byCity: $request->by_city,
+                    byName: $request->by_name,
+                    byCountry: $request->by_country,
+                    byState: $request->by_state,
+                    byPostal: $request->by_postal,
+                    byType: $request->by_type,
                     page: $request->page ?? 1,
-                    perPage: $request->perPage ?? 10,
+                    perPage: $request->per_page ?? 10,
                     sort: $request->sort,
-                    sortDirection: $request->sortDirection,
+                    sortDirection: $request->sort_direction,
                 );
 
                 $requestMetaData = new MetaDataBreweries(
-                    byCity: $request->byCity,
-                    byName: $request->byName,
-                    byCountry: $request->byCountry,
-                    byState: $request->byState,
-                    byPostal: $request->byPostal,
-                    byType: $request->byType,
+                    byCity: $request->by_city,
+                    byName: $request->by_name,
+                    byCountry: $request->by_country,
+                    byState: $request->by_state,
+                    byPostal: $request->by_postal,
+                    byType: $request->by_type,
+                    page: $request->page ?? 1,
+                    perPage: $request->per_page ?? 10,
                 );
 
                 try {
@@ -94,16 +96,16 @@ class BreweryController extends Controller
     {
         $cacheKeyParts = [
             'breweries',
-            $request->byCity ?? 'no_city',
-            $request->byName ?? 'no_name',
-            $request->byCountry ?? 'no_country',
-            $request->byState ?? 'no_state',
-            $request->byPostal ?? 'no_postal',
-            $request->byType ?? 'no_type',
+            $request->by_city ?? 'no_city',
+            $request->by_name ?? 'no_name',
+            $request->by_country ?? 'no_country',
+            $request->by_state ?? 'no_state',
+            $request->by_postal ?? 'no_postal',
+            $request->by_type ?? 'no_type',
             'page_'.($request->page ?? 1),
-            'per_page_'.($request->perPage ?? 10),
+            'per_page_'.($request->per_page ?? 10),
             $request->sort ?? 'default_sort',
-            $request->sortDirection ?? 'default_sort_direction',
+            $request->sort_direction ?? 'default_sort_direction',
         ];
 
         return 'brewery_api_'.Str::slug(implode('_', $cacheKeyParts));
